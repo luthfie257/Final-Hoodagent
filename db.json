@@ -1,0 +1,256 @@
+{
+  "admins": [
+    {
+      "id": "1",
+      "name": "Admin Hood Agent",
+      "email": "admin@hoodagent.com",
+      "password": "admin123"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Hood Agent T-Shirt",
+      "category": "Apparel",
+      "price": 200000,
+      "image": "/api/placeholder/400/400",
+      "description": "Premium cotton t-shirt with Hood Agent logo",
+      "stock": 1
+    },
+    {
+      "id": "2",
+      "name": "Hoodie Premium",
+      "category": "Apparel",
+      "price": 350000,
+      "image": "/api/placeholder/400/400",
+      "description": "Comfortable hoodie for all seasons",
+      "stock": 30
+    },
+    {
+      "id": "3",
+      "name": "Tote Bag Canvas",
+      "category": "Accessories",
+      "price": 125000,
+      "image": "/api/placeholder/400/400",
+      "description": "Eco-friendly canvas tote bag",
+      "stock": 100
+    },
+    {
+      "id": "4",
+      "name": "Sticker Pack",
+      "category": "Accessories",
+      "price": 25000,
+      "image": "/api/placeholder/400/400",
+      "description": "Set of 10 premium vinyl stickers",
+      "stock": 200
+    },
+    {
+      "id": "5",
+      "name": "Cap Snapback",
+      "category": "Accessories",
+      "price": 175000,
+      "image": "/api/placeholder/400/400",
+      "description": "Adjustable snapback cap with embroidered logo",
+      "stock": 45
+    },
+    {
+      "id": "6",
+      "name": "Notebook A5",
+      "category": "Stationery",
+      "price": 75000,
+      "image": "/api/placeholder/400/400",
+      "description": "Premium quality notebook with Hood Agent branding",
+      "stock": 80
+    },
+    {
+      "id": "7",
+      "name": "Water Bottle",
+      "category": "Lifestyle",
+      "price": 95000,
+      "image": "/api/placeholder/400/400",
+      "description": "Stainless steel insulated water bottle",
+      "stock": 60
+    },
+    {
+      "id": "8",
+      "name": "Enamel Pin Set",
+      "category": "Accessories",
+      "price": 50000,
+      "image": "/api/placeholder/400/400",
+      "description": "Set of 3 collectible enamel pins",
+      "stock": 150
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "title": "Skyline Haven",
+      "price": "$2,50,000",
+      "location": "California",
+      "image": "/api/placeholder/400/300"
+    },
+    {
+      "id": "2",
+      "title": "Vista Verde",
+      "price": "$2,50,000",
+      "location": "San Francisco",
+      "image": "/api/placeholder/400/300"
+    },
+    {
+      "id": "3",
+      "title": "Serenity Suites",
+      "price": "$2,50,000",
+      "location": "Chicago",
+      "image": "/api/placeholder/400/300"
+    },
+    {
+      "id": "4",
+      "title": "Central Square",
+      "price": "$2,50,000",
+      "location": "Los Angeles",
+      "image": "/api/placeholder/400/300"
+    },
+    {
+      "id": "5",
+      "title": "Vista Verde",
+      "price": "$2,50,000",
+      "location": "San Francisco",
+      "image": "/api/placeholder/400/300"
+    },
+    {
+      "id": "6",
+      "title": "Serenity Suites",
+      "price": "$2,50,000",
+      "location": "Chicago",
+      "image": "/api/placeholder/400/300"
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "title": "Tech Summit 2025",
+      "date": "15 March 2025",
+      "time": "09:00 - 17:00 WIB",
+      "location": "Jakarta Convention Center",
+      "category": "Technology",
+      "description": "Join us for the biggest tech conference of the year featuring industry leaders and innovative startups.",
+      "status": "upcoming"
+    },
+    {
+      "id": "2",
+      "title": "Community Meetup",
+      "date": "22 March 2025",
+      "time": "14:00 - 18:00 WIB",
+      "location": "Hood Agent HQ",
+      "category": "Networking",
+      "description": "Connect with fellow community members, share experiences, and build meaningful relationships.",
+      "status": "upcoming"
+    },
+    {
+      "id": "3",
+      "title": "Design Workshop",
+      "date": "5 April 2025",
+      "time": "10:00 - 16:00 WIB",
+      "location": "Creative Space Hub",
+      "category": "Workshop",
+      "description": "Learn the latest design trends and tools from experienced designers in an interactive workshop.",
+      "status": "upcoming"
+    },
+    {
+      "id": "4",
+      "title": "Startup Pitch Night",
+      "date": "12 April 2025",
+      "time": "18:00 - 21:00 WIB",
+      "location": "Innovation Center",
+      "category": "Startup",
+      "description": "Watch promising startups pitch their ideas to investors and industry experts.",
+      "status": "upcoming"
+    }
+  ],
+  "divisi": [
+    {
+      "id": "1",
+      "name": "Technology",
+      "icon": "💻",
+      "description": "Building innovative solutions and maintaining our tech infrastructure with cutting-edge technologies.",
+      "members": 8,
+      "projects": 25,
+      "skills": [
+        "React",
+        "Node.js",
+        "Python",
+        "Cloud"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Design",
+      "icon": "🎨",
+      "description": "Creating beautiful and user-friendly experiences that bring our vision to life.",
+      "members": 5,
+      "projects": 40,
+      "skills": [
+        "UI/UX",
+        "Figma",
+        "Branding",
+        "Motion"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Marketing",
+      "icon": "📢",
+      "description": "Spreading the word and growing our community through strategic campaigns and engagement.",
+      "members": 6,
+      "projects": 30,
+      "skills": [
+        "Social Media",
+        "Content",
+        "SEO",
+        "Analytics"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Operations",
+      "icon": "⚙️",
+      "description": "Ensuring smooth day-to-day operations and coordinating between all divisions.",
+      "members": 4,
+      "projects": 20,
+      "skills": [
+        "Management",
+        "Planning",
+        "Logistics",
+        "Support"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Community",
+      "icon": "👥",
+      "description": "Building and nurturing our community, organizing events and fostering connections.",
+      "members": 7,
+      "projects": 35,
+      "skills": [
+        "Events",
+        "Networking",
+        "Engagement",
+        "Outreach"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Business Development",
+      "icon": "💼",
+      "description": "Driving growth through partnerships, sales, and strategic business initiatives.",
+      "members": 5,
+      "projects": 15,
+      "skills": [
+        "Strategy",
+        "Sales",
+        "Partnership",
+        "Analysis"
+      ]
+    }
+  ]
+}
