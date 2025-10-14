@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = "http://localhost:5000";
@@ -28,14 +30,20 @@ const Divisi = () => {
       id="divisi"
       className="container mx-auto py-20 px-6 md:px-20 lg:px-32 overflow-hidden"
     >
-      <div className="text-center mb-16">
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Our <span className="text-[#CB3B0F]">Divisions</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Meet the talented teams that make Hood Agent possible
         </p>
-      </div>
+      </motion.div>
 
       {loading ? (
         <div className="text-center py-16">
@@ -46,9 +54,14 @@ const Divisi = () => {
         <>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {divisiData.map((divisi, index) => (
-          <div
+          <motion.div
             key={index}
-            className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group border-2 border-transparent hover:border-[#CB3B0F]"
+            className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group border-2 border-transparent hover:border-[#CB3B0F]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ y: -8 }}
           >
             <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
               {divisi.icon}
@@ -94,18 +107,27 @@ const Divisi = () => {
             <button className="w-full bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-[#CB3B0F] hover:text-white transition-all duration-300">
               Join Division
             </button>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      <div className="text-center mt-12">
+      <motion.div
+        className="text-center mt-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
         <p className="text-gray-600 mb-6">
           Want to be part of our amazing team?
         </p>
-        <button className="bg-[#CB3B0F] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#FFAE00] transition-all duration-300 hover:scale-105 shadow-lg">
-          Apply Now
-        </button>
-      </div>
+        <Link
+          to="/divisi"
+          className="inline-block bg-[#CB3B0F] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300 hover:scale-105 shadow-lg"
+        >
+          Lihat Semua Divisi →
+        </Link>
+      </motion.div>
         </>
       )}
     </section>

@@ -1,8 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
+import AboutPage from "./pages/AboutPage";
+import ProjectsPage from "./pages/ProjectsPage";
 import ProductsPage from "./pages/ProductsPage";
+import EventsPage from "./pages/EventsPage";
+import DivisiPage from "./pages/DivisiPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminRegisterPage from "./pages/AdminRegisterPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -16,9 +21,14 @@ const App = () => {
   return (
     <AdminAuthProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/divisi" element={<DivisiPage />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLoginPage />} />

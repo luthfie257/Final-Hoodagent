@@ -7,6 +7,7 @@ import left_arrow from './left_arrow.svg'
 import right_arrow from './right_arrow.svg'
 import header_img from './header_img.png'
 import brand_img from './brand_img.png'
+import map_location from './Map Location.gif'
 import project_img_1 from './project_img_1.jpg'
 import project_img_2 from './project_img_2.jpg'
 import project_img_3 from './project_img_3.jpg'
@@ -25,6 +26,7 @@ export const assets = {
     star_icon,
     header_img,
     brand_img,
+    map_location,
     project_img_1,
     project_img_2,
     project_img_3,

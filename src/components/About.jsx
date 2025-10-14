@@ -1,31 +1,58 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 
 const About = () => {
+  const stats = [
+    { value: "500+", label: "Projects Completed" },
+    { value: "50+", label: "Events Organized" },
+    { value: "1000+", label: "Community Members" },
+    { value: "20+", label: "Team Members" }
+  ];
+
   return (
     <section
       id="story"
       className="container mx-auto py-20 px-6 md:px-20 lg:px-32 overflow-hidden"
     >
-      <div className="text-center mb-16">
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Our <span className="text-[#CB3B0F]">Story</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Discover who we are and what drives us forward
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className="order-2 md:order-1">
+        <motion.div
+          className="order-2 md:order-1"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
           <img
             src={assets.brand_img}
             alt="Hood Agent Brand"
             className="w-full rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-500"
           />
-        </div>
+        </motion.div>
 
-        <div className="order-1 md:order-2 space-y-6">
+        <motion.div
+          className="order-1 md:order-2 space-y-6"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
           <div className="space-y-4">
             <h3 className="text-3xl font-bold text-gray-800">
               Building Communities, Creating Opportunities
@@ -43,24 +70,37 @@ const About = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-6 pt-6">
-            <div className="text-center p-6 bg-orange-50 rounded-xl hover:shadow-lg transition-shadow duration-300">
-              <h4 className="text-4xl font-bold text-[#CB3B0F] mb-2">500+</h4>
-              <p className="text-gray-600 font-medium">Projects Completed</p>
-            </div>
-            <div className="text-center p-6 bg-orange-50 rounded-xl hover:shadow-lg transition-shadow duration-300">
-              <h4 className="text-4xl font-bold text-[#CB3B0F] mb-2">50+</h4>
-              <p className="text-gray-600 font-medium">Events Organized</p>
-            </div>
-            <div className="text-center p-6 bg-orange-50 rounded-xl hover:shadow-lg transition-shadow duration-300">
-              <h4 className="text-4xl font-bold text-[#CB3B0F] mb-2">1000+</h4>
-              <p className="text-gray-600 font-medium">Community Members</p>
-            </div>
-            <div className="text-center p-6 bg-orange-50 rounded-xl hover:shadow-lg transition-shadow duration-300">
-              <h4 className="text-4xl font-bold text-[#CB3B0F] mb-2">20+</h4>
-              <p className="text-gray-600 font-medium">Team Members</p>
-            </div>
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="text-center p-6 bg-orange-50 rounded-xl hover:shadow-lg transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <h4 className="text-4xl font-bold text-[#CB3B0F] mb-2">{stat.value}</h4>
+                <p className="text-gray-600 font-medium">{stat.label}</p>
+              </motion.div>
+            ))}
           </div>
-        </div>
+
+          <motion.div
+            className="text-center mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <Link
+              to="/about"
+              className="inline-block bg-[#CB3B0F] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300 hover:scale-105 shadow-lg"
+            >
+              Lihat Selengkapnya →
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

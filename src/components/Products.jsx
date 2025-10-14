@@ -1,83 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000";
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const productsData = [
-    {
-      id: 1,
-      name: "Hood Agent T-Shirt",
-      category: "Apparel",
-      price: 150000,
-      image: "/api/placeholder/400/400",
-      description: "Premium cotton t-shirt with Hood Agent logo",
-      stock: 50,
-    },
-    {
-      id: 2,
-      name: "Hoodie Premium",
-      category: "Apparel",
-      price: 350000,
-      image: "/api/placeholder/400/400",
-      description: "Comfortable hoodie for all seasons",
-      stock: 30,
-    },
-    {
-      id: 3,
-      name: "Tote Bag Canvas",
-      category: "Accessories",
-      price: 125000,
-      image: "/api/placeholder/400/400",
-      description: "Eco-friendly canvas tote bag",
-      stock: 100,
-    },
-    {
-      id: 4,
-      name: "Sticker Pack",
-      category: "Accessories",
-      price: 25000,
-      image: "/api/placeholder/400/400",
-      description: "Set of 10 premium vinyl stickers",
-      stock: 200,
-    },
-    {
-      id: 5,
-      name: "Cap Snapback",
-      category: "Accessories",
-      price: 175000,
-      image: "/api/placeholder/400/400",
-      description: "Adjustable snapback cap with embroidered logo",
-      stock: 45,
-    },
-    {
-      id: 6,
-      name: "Notebook A5",
-      category: "Stationery",
-      price: 75000,
-      image: "/api/placeholder/400/400",
-      description: "Premium quality notebook with Hood Agent branding",
-      stock: 80,
-    },
-    {
-      id: 7,
-      name: "Water Bottle",
-      category: "Lifestyle",
-      price: 95000,
-      image: "/api/placeholder/400/400",
-      description: "Stainless steel insulated water bottle",
-      stock: 60,
-    },
-    {
-      id: 8,
-      name: "Enamel Pin Set",
-      category: "Accessories",
-      price: 50000,
-      image: "/api/placeholder/400/400",
-      description: "Set of 3 collectible enamel pins",
-      stock: 150,
-    },
-  ];
+  // Fetch products from API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/products`);
+        setProductsData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const categories = ["All", "Apparel", "Accessories", "Stationery", "Lifestyle"];
 
@@ -94,24 +41,46 @@ const Products = () => {
     }).format(price);
   };
 
+  if (loading) {
+    return (
+      <section className="container mx-auto py-20 px-6 md:px-20 lg:px-32">
+        <div className="text-center py-16">
+          <p className="text-gray-600 text-lg">Loading products...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="products"
       className="container mx-auto py-20 px-6 md:px-20 lg:px-32 overflow-hidden"
     >
-      <div className="text-center mb-16">
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Our <span className="text-[#CB3B0F]">Products</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Browse our exclusive collection of Hood Agent merchandise
         </p>
-      </div>
+      </motion.div>
 
       {/* Category Filter */}
-      <div className="flex flex-wrap justify-center gap-3 mb-12">
-        {categories.map((category) => (
-          <button
+      <motion.div
+        className="flex flex-wrap justify-center gap-3 mb-12"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        {categories.map((category, index) => (
+          <motion.button
             key={category}
             onClick={() => setSelectedCategory(category)}
             className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 ${
@@ -119,18 +88,29 @@ const Products = () => {
                 ? "bg-[#CB3B0F] text-white shadow-lg scale-105"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             {category}
-          </button>
+          </motion.button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Products Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {filteredProducts.map((product) => (
-          <div
+        {filteredProducts.map((product, index) => (
+          <motion.div
             key={product.id}
-            className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group"
+            className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ y: -8 }}
           >
             <div className="relative overflow-hidden bg-gray-100 h-64">
               <img
@@ -173,21 +153,32 @@ const Products = () => {
                 Add to Cart
               </button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* Empty State */}
       {filteredProducts.length === 0 && (
-        <div className="text-center py-16">
+        <motion.div
+          className="text-center py-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <p className="text-gray-500 text-lg">
             No products found in this category
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* CTA Section */}
-      <div className="mt-16 text-center bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] rounded-2xl p-12 shadow-xl">
+      <motion.div
+        className="mt-16 text-center bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] rounded-2xl p-12 shadow-xl"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+      >
         <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Want to See More Products?
         </h3>
@@ -200,7 +191,7 @@ const Products = () => {
         >
           View All Products
         </Link>
-      </div>
+      </motion.div>
     </section>
   );
 };

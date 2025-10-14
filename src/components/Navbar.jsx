@@ -20,14 +20,14 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full z-20 transition-all duration-300">
-      <div
-        className={`container mx-auto flex justify-between items-center py-3 px-6 md:px-20 lg:px-32 rounded-b-lg transition-all duration-300 ${
-          isScrolled
-            ? "backdrop-blur-lg bg-black/40 shadow-2xl"
-            : "backdrop-blur-md bg-black/20 shadow-lg"
-        }`}
-      >
+    <div
+      className={`fixed top-0 left-0 w-full z-20 transition-all duration-300 ${
+        isScrolled
+          ? "backdrop-blur-lg bg-black/40 shadow-2xl"
+          : "backdrop-blur-md bg-black/20 shadow-lg"
+      }`}
+    >
+      <div className="flex justify-between items-center py-3 px-6 md:px-20 lg:px-32">
         <Link to="/">
           <img
             src={assets.logo}
@@ -45,25 +45,25 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/#story"
+            to="/about"
             className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
           >
             Our Story
           </Link>
           <Link
-            to="/#catalog"
+            to="/projects"
             className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
           >
             Catalog
           </Link>
           <Link
-            to="/#event"
+            to="/events"
             className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
           >
             Event
           </Link>
           <Link
-            to="/#divisi"
+            to="/divisi"
             className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
           >
             Divisi
@@ -120,28 +120,28 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/#story"
+            to="/about"
             className="text-white text-lg hover:text-[#FFAE00] transition-colors duration-300"
             onClick={() => setIsMenuOpen(false)}
           >
             Our Story
           </Link>
           <Link
-            to="/#catalog"
+            to="/projects"
             className="text-white text-lg hover:text-[#FFAE00] transition-colors duration-300"
             onClick={() => setIsMenuOpen(false)}
           >
             Catalog
           </Link>
           <Link
-            to="/#event"
+            to="/events"
             className="text-white text-lg hover:text-[#FFAE00] transition-colors duration-300"
             onClick={() => setIsMenuOpen(false)}
           >
             Event
           </Link>
           <Link
-            to="/#divisi"
+            to="/divisi"
             className="text-white text-lg hover:text-[#FFAE00] transition-colors duration-300"
             onClick={() => setIsMenuOpen(false)}
           >

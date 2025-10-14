@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = "http://localhost:5000";
@@ -39,14 +41,20 @@ const Events = () => {
       className="bg-gray-50 py-20 px-6 md:px-20 lg:px-32 overflow-hidden"
     >
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Upcoming <span className="text-[#CB3B0F]">Events</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Don't miss out on our exciting events and networking opportunities
           </p>
-        </div>
+        </motion.div>
 
         {loading ? (
           <div className="text-center py-16">
@@ -57,9 +65,14 @@ const Events = () => {
           <>
             <div className="grid md:grid-cols-2 gap-8">
           {eventsData.map((event, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group"
+              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
             >
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -102,15 +115,24 @@ const Events = () => {
                   Register Now
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <button className="bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#CB3B0F] transition-all duration-300 hover:scale-105 shadow-md">
-            View All Events
-          </button>
-        </div>
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <Link
+            to="/events"
+            className="inline-block bg-[#CB3B0F] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            Lihat Semua Event →
+          </Link>
+        </motion.div>
           </>
         )}
       </div>

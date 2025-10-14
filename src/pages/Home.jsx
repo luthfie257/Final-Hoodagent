@@ -13,7 +13,10 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Handle scroll to section based on hash
+    // Scroll to top first
+    window.scrollTo(0, 0);
+
+    // Then handle scroll to section based on hash if exists
     if (location.hash) {
       const id = location.hash.replace('#', '');
       const element = document.getElementById(id);
@@ -23,9 +26,6 @@ const Home = () => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       }
-    } else {
-      // Scroll to top if no hash
-      window.scrollTo(0, 0);
     }
   }, [location]);
 

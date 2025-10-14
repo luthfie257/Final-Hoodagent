@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 import axios from "axios";
 
@@ -57,14 +59,20 @@ const Projects = () => {
       id="catalog"
       className="container mx-auto py-20 px-6 md:px-20 lg:px-32 overflow-hidden"
     >
-      <div className="text-center mb-16">
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Our <span className="text-[#CB3B0F]">Catalog</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Explore our featured projects and discover amazing opportunities
         </p>
-      </div>
+      </motion.div>
 
       {loading ? (
         <div className="text-center py-16">
@@ -147,6 +155,21 @@ const Projects = () => {
             />
           ))}
         </div>
+
+        <motion.div
+          className="text-center mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <Link
+            to="/projects"
+            className="inline-block bg-[#CB3B0F] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            Lihat Selengkapnya →
+          </Link>
+        </motion.div>
       </div>
       ) : (
         <div className="text-center py-16">
