@@ -26,7 +26,13 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  const categories = ["All", "Apparel", "Accessories", "Stationery", "Lifestyle"];
+  const categories = [
+    "All",
+    "Apparel",
+    "Accessories",
+    "Stationery",
+    "Lifestyle",
+  ];
 
   const filteredProducts =
     selectedCategory === "All"
@@ -39,6 +45,19 @@ const Products = () => {
       currency: "IDR",
       minimumFractionDigits: 0,
     }).format(price);
+  };
+
+  const handleWhatsAppOrder = (product) => {
+    const phoneNumber = "6281321899509"; // WhatsApp number without + and spaces
+    const message = `Halo, saya tertarik dengan produk:\n\n*${
+      product.name
+    }*\nHarga: ${formatPrice(product.price)}\nKategori: ${
+      product.category
+    }\n\nApakah produk ini masih tersedia?`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   if (loading) {
@@ -148,9 +167,12 @@ const Products = () => {
                 </p>
               </div>
 
-              <button className="w-full bg-[#CB3B0F] text-white py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300 group-hover:shadow-lg flex items-center justify-center gap-2">
-                <span>🛒</span>
-                Add to Cart
+              <button
+                onClick={() => handleWhatsAppOrder(product)}
+                className="w-full bg-[#25D366] text-white py-3 rounded-lg font-semibold hover:bg-[#128C7E] transition-all duration-300 group-hover:shadow-lg flex items-center justify-center gap-2"
+              >
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB/UlEQVR4AeSU0XXCMAxF0y5SmKRlksIkwCTQSaCTAJPQe0VsbCcpHz18NceKFflJT5LtvHZPfv4BwfV6nSEb5IA4TrzUd8zLRx3+tUUE2BDghKyRGbJHjojD4JKI8XtURgkIbNYp8Pbl9syZVr0siDZHtsgavFVJyGc9RgmA7BDHgoCjGWI/I65JJFYiq1TPMiAgG50+QJjtke+BE2t5QHLmw4rE2Uo+76Mi6IMJ2uOYem35tuvu1WhgJVlhXhLD5FBvoyLAlBbtbQc49dU9SWvARkdKqMK1BO+69hmpmpnzQ+l9JIkYyaElkN2jmNYzAQF0Tvap+ZsF94LpNloCrRlAUAnsre1KJ0vMlLyxkP3Ru5bAgNqzQGJF7okbGCTsjXvibfbEZSxK24EBQZRoAMDlKEk8UYrBPPtB2oPN/tLrMbUVGEiQRzUAvqiivFRllepfYkgqVVPtVUVgIMA6mR1qPVxHvFTeXm+5vw8vo3iTKu9POFcEYek6K6iy6JoHEisKDJmLt03a4kCU8IoAcLpYF3R/0UkMUvp5qtxo2+J+uDYIrrEiwJAuieUqn9icPTFK/J4hP2A3sGu2JVqFbTBaAjO1dI9l9BgP+x0biW6vJXWfxBh4NHOwMSoCemtQZYMuUcdsb/3WbkDFP602iSLQ1KsimAL9xf50gh8AAAD//wTlNwUAAAAGSURBVAMADOfhMUai0GQAAAAASUVORK5CYII=" />
+                Pesan via WhatsApp
               </button>
             </div>
           </motion.div>

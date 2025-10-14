@@ -76,21 +76,14 @@ const Navbar = () => {
           </Link>
         </ul>
 
-        {/* Desktop Auth Buttons */}
-        <div className="hidden md:flex gap-3">
-          <Link
-            to="/admin/login"
-            className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-full font-semibold hover:bg-white hover:text-black transition-all duration-300 shadow-md hover:shadow-xl"
-          >
-            Login
-          </Link>
-          <Link
-            to="/admin/register"
-            className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-full font-semibold hover:bg-white hover:text-black transition-all duration-300 shadow-md hover:shadow-xl"
-          >
-            Register
-          </Link>
-        </div>
+        {/* Desktop Auth Icon */}
+        <Link
+          to="/admin/login"
+          className="hidden md:flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white hover:text-[#CB3B0F] text-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-110"
+          title="Login / Register"
+        >
+          <i className='bx bxs-user-circle text-3xl'></i>
+        </Link>
 
         {/* Mobile Menu Button */}
         <button
@@ -155,23 +148,15 @@ const Navbar = () => {
             Products
           </Link>
 
-          {/* Mobile Auth Buttons */}
-          <div className="flex flex-col gap-3 mt-4">
-            <Link
-              to="/admin/login"
-              className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-all duration-300 text-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Login
-            </Link>
-            <Link
-              to="/admin/register"
-              className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-all duration-300 text-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Register
-            </Link>
-          </div>
+          {/* Mobile Auth Icon */}
+          <Link
+            to="/admin/login"
+            className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#CB3B0F] transition-all duration-300 mt-4"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <i className='bx bxs-user-circle text-2xl'></i>
+            <span>Login / Register</span>
+          </Link>
         </div>
       </div>
     </div>
