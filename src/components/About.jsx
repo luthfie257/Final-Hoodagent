@@ -8,7 +8,7 @@ const About = () => {
     { value: "500+", label: "Projects Completed" },
     { value: "50+", label: "Events Organized" },
     { value: "1000+", label: "Community Members" },
-    { value: "20+", label: "Team Members" }
+    { value: "20+", label: "Team Members" },
   ];
 
   return (
@@ -58,14 +58,21 @@ const About = () => {
               Building Communities, Creating Opportunities
             </h3>
             <p className="text-gray-600 leading-relaxed">
-              Hood Agent adalah platform yang menghubungkan komunitas dengan
-              peluang-peluang terbaik. Kami percaya bahwa setiap orang berhak
-              mendapatkan akses ke informasi, event, dan kesempatan yang dapat
-              mengembangkan potensi mereka.
+              Hood Agent Official, merupakan brand lokal yang menyediakan desain
+              tentang Kepolisian Republik Indonesia. Berdiri dari tahun 2015
+              dengan nama Garage D'blooh, kemudian pada bulan Mei 2023 resmi
+              rebranding menjadi Hood Agent yang terbagi 3 segmen, yaitu :
+              <br />
+              -Hood Agent id Menyediakan pakaian tentang kriminal yang dapat
+              digunakan oleh sipil.
+              <br />- Hood Agent Bhapri Menyediakan pakaian untuk letting
+              Kepolisian sehingga kami sebut Bhapri (Bhayangkara Pride).
+              <br />- Hood Agent Industries Melayani pembuatan pakaian instansi
+              dengan desain yang diinginkan
             </p>
             <p className="text-gray-600 leading-relaxed">
-              Dengan tim yang berdedikasi dan berpengalaman, kami terus berinovasi
-              untuk memberikan layanan terbaik bagi komunitas kami.
+              Dengan tim yang berdedikasi dan berpengalaman, kami terus
+              berinovasi untuk memberikan layanan terbaik bagi komunitas kami.
             </p>
           </div>
 
@@ -80,7 +87,9 @@ const About = () => {
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <h4 className="text-4xl font-bold text-[#CB3B0F] mb-2">{stat.value}</h4>
+                <h4 className="text-4xl font-bold text-[#CB3B0F] mb-2">
+                  {stat.value}
+                </h4>
                 <p className="text-gray-600 font-medium">{stat.label}</p>
               </motion.div>
             ))}

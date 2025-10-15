@@ -22,7 +22,7 @@ const AboutPage = () => {
 
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-16">
-          <motion.h1
+          {/* <motion.h1
             className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-2xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ const AboutPage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             Discover who we are and what drives us forward
-          </motion.p>
+          </motion.p> */}
         </div>
       </div>
 
@@ -81,14 +81,25 @@ const AboutPage = () => {
               1. Huruf H (Hood)
             </h4>
             <p className="text-gray-600 leading-relaxed text-justify">
-              Huruf H melambangkan kekuatan, kebersamaan, dan fondasi komunitas. Bentuknya yang kokoh menggambarkan keteguhan prinsip serta semangat solidaritas yang selalu dijaga oleh Hood Agent sejak awal berdiri. Elemen ini merepresentasikan "Hood" — simbol persaudaraan, komunitas, dan lingkungan yang saling mendukung, baik bagi pelanggan sipil maupun anggota kepolisian.
+              Huruf H melambangkan kekuatan, kebersamaan, dan fondasi komunitas.
+              Bentuknya yang kokoh menggambarkan keteguhan prinsip serta
+              semangat solidaritas yang selalu dijaga oleh Hood Agent sejak awal
+              berdiri. Elemen ini merepresentasikan "Hood" — simbol
+              persaudaraan, komunitas, dan lingkungan yang saling mendukung,
+              baik bagi pelanggan sipil maupun anggota kepolisian.
             </p>
 
             <h4 className="text-2xl font-bold text-gray-800 mb-3 mt-6">
               2. Huruf A (Agent)
             </h4>
             <p className="text-gray-600 leading-relaxed text-justify">
-              Huruf A menjadi simbol agen perubahan, mencerminkan semangat aktif, progresif, dan kreatif dalam menghadirkan desain yang otentik. Bentuknya yang mengarah ke atas menggambarkan ambisi dan visi jangka panjang, sejalan dengan semangat Hood Agent untuk terus berkembang sebagai brand lokal yang inovatif. Huruf A juga mempertegas identitas "Agent" sebagai pelaku yang berperan nyata dalam dunia desain dan apparel bertema kepolisian.
+              Huruf A menjadi simbol agen perubahan, mencerminkan semangat
+              aktif, progresif, dan kreatif dalam menghadirkan desain yang
+              otentik. Bentuknya yang mengarah ke atas menggambarkan ambisi dan
+              visi jangka panjang, sejalan dengan semangat Hood Agent untuk
+              terus berkembang sebagai brand lokal yang inovatif. Huruf A juga
+              mempertegas identitas "Agent" sebagai pelaku yang berperan nyata
+              dalam dunia desain dan apparel bertema kepolisian.
             </p>
           </motion.div>
         </div>
@@ -108,7 +119,12 @@ const AboutPage = () => {
               3. Simbol Bintara Tinggi
             </h4>
             <p className="text-gray-600 leading-relaxed text-justify">
-              Simbol Bintara Tinggi disematkan sebagai bentuk penghormatan terhadap struktur dan kehormatan dalam tubuh Kepolisian Republik Indonesia. Elemen ini melambangkan kepemimpinan, disiplin, dan tanggung jawab, yang menjadi nilai penting dalam setiap lini produk Hood Agent. Simbol ini menjadi pengingat bahwa setiap karya yang dihasilkan membawa nilai loyalitas dan semangat Bhayangkara.
+              Simbol Bintara Tinggi disematkan sebagai bentuk penghormatan
+              terhadap struktur dan kehormatan dalam tubuh Kepolisian Republik
+              Indonesia. Elemen ini melambangkan kepemimpinan, disiplin, dan
+              tanggung jawab, yang menjadi nilai penting dalam setiap lini
+              produk Hood Agent. Simbol ini menjadi pengingat bahwa setiap karya
+              yang dihasilkan membawa nilai loyalitas dan semangat Bhayangkara.
             </p>
           </motion.div>
 
@@ -156,7 +172,12 @@ const AboutPage = () => {
               4. Kubah Masjid
             </h4>
             <p className="text-gray-600 leading-relaxed text-justify">
-              Bentuk kubah masjid yang menyatu di bagian atas logo mengandung makna spiritual yang mendalam — selalu bertakwa kepada Tuhan Yang Maha Esa. Kubah ini menjadi representasi bahwa setiap langkah dan karya Hood Agent tidak lepas dari nilai keikhlasan, kejujuran, dan rasa syukur. Filosofi ini menjadi dasar moral dalam menjalankan bisnis yang beretika dan penuh makna.
+              Bentuk kubah masjid yang menyatu di bagian atas logo mengandung
+              makna spiritual yang mendalam — selalu bertakwa kepada Tuhan Yang
+              Maha Esa. Kubah ini menjadi representasi bahwa setiap langkah dan
+              karya Hood Agent tidak lepas dari nilai keikhlasan, kejujuran, dan
+              rasa syukur. Filosofi ini menjadi dasar moral dalam menjalankan
+              bisnis yang beretika dan penuh makna.
             </p>
           </motion.div>
         </div>
@@ -176,7 +197,12 @@ const AboutPage = () => {
               5. Gaya Romawi/Klasik
             </h4>
             <p className="text-gray-600 leading-relaxed text-justify">
-              Gaya Romawi klasik yang digunakan menambahkan nuansa elegan, abadi, dan berwibawa. Elemen serif pada huruf memberikan karakter kuat, menggambarkan keberlanjutan nilai dan komitmen Hood Agent dalam menjaga kualitas serta identitas brand sejak 2015. Nuansa klasik ini juga menandakan bahwa meski terus berkembang, Hood Agent tetap berpegang pada akar nilai dan prinsip yang sama.
+              Gaya Romawi klasik yang digunakan menambahkan nuansa elegan,
+              abadi, dan berwibawa. Elemen serif pada huruf memberikan karakter
+              kuat, menggambarkan keberlanjutan nilai dan komitmen Hood Agent
+              dalam menjaga kualitas serta identitas brand sejak 2015. Nuansa
+              klasik ini juga menandakan bahwa meski terus berkembang, Hood
+              Agent tetap berpegang pada akar nilai dan prinsip yang sama.
             </p>
           </motion.div>
 
@@ -224,7 +250,14 @@ const AboutPage = () => {
               6. Keseluruhan Komposisi
             </h4>
             <p className="text-gray-600 leading-relaxed text-justify">
-              Secara keseluruhan, logo Hood Agent merepresentasikan perpaduan antara kekuatan, spiritualitas, dan profesionalitas. Setiap elemen memiliki filosofi yang saling melengkapi — menggambarkan perjalanan brand dari komunitas kreatif sederhana menjadi entitas profesional. Logo ini bukan sekadar simbol visual, melainkan cerminan jati diri dan perjalanan panjang Hood Agent dalam menghadirkan karya yang menggabungkan estetika desain, semangat nasionalisme, dan nilai religius yang luhur.
+              Secara keseluruhan, logo Hood Agent merepresentasikan perpaduan
+              antara kekuatan, spiritualitas, dan profesionalitas. Setiap elemen
+              memiliki filosofi yang saling melengkapi — menggambarkan
+              perjalanan brand dari komunitas kreatif sederhana menjadi entitas
+              profesional. Logo ini bukan sekadar simbol visual, melainkan
+              cerminan jati diri dan perjalanan panjang Hood Agent dalam
+              menghadirkan karya yang menggabungkan estetika desain, semangat
+              nasionalisme, dan nilai religius yang luhur.
             </p>
           </motion.div>
         </div>

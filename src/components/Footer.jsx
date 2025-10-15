@@ -17,9 +17,9 @@ const Footer = () => {
               />
             </Link>
             <p className="text-gray-400 leading-relaxed mb-6">
-              Hood Agent is a platform connecting communities with opportunities.
-              We believe everyone deserves access to information, events, and
-              opportunities that help them grow.
+              Hood Agent is a platform connecting communities with
+              opportunities. We believe everyone deserves access to information,
+              events, and opportunities that help them grow.
             </p>
             <div className="flex gap-4">
               <a
@@ -114,7 +114,7 @@ const Footer = () => {
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-2">
                 <span>📍</span>
-                <span>Jakarta, Indonesia</span>
+                <span>Garut, Jawa Barat Indonesia</span>
               </li>
               <li className="flex items-start gap-2">
                 <span>📧</span>
