@@ -21,24 +21,7 @@ const AboutPage = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-16">
-          {/* <motion.h1
-            className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-2xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Our Story
-          </motion.h1>
-          <motion.p
-            className="text-xl md:text-2xl text-white/90 drop-shadow-lg"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Discover who we are and what drives us forward
-          </motion.p> */}
-        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-16"></div>
       </div>
 
       {/* About Content Section */}

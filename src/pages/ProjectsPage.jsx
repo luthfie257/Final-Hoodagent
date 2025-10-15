@@ -59,26 +59,19 @@ const ProjectsPage = () => {
     <div className="w-full overflow-hidden">
       <Navbar />
 
-      {/* Hero Section */}
-      <div className="min-h-[50vh] bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] flex items-center justify-center text-center px-6">
-        <div className="max-w-4xl mx-auto pt-32 pb-16">
-          <motion.h1
-            className="text-5xl md:text-6xl font-bold text-white mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Our Catalog
-          </motion.h1>
-          <motion.p
-            className="text-xl text-white/90"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Explore our featured projects and discover amazing opportunities
-          </motion.p>
+      {/* Hero Section with Background Image */}
+      <div className="relative min-h-[70vh] md:min-h-[90vh] flex items-center justify-center text-center overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${assets.gambarOurStory})` }}
+        >
+          {/* Overlay untuk membuat text lebih terbaca */}
+          <div className="absolute inset-0 bg-black/40"></div>
         </div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-16"></div>
       </div>
 
       {/* Projects Section */}
@@ -96,7 +89,11 @@ const ProjectsPage = () => {
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-[#CB3B0F] hover:scale-110 transition-all duration-300 group"
               aria-label="Previous project"
             >
-              <img src={assets.left_arrow} alt="Previous" className="w-6 h-6 group-hover:brightness-0 group-hover:invert transition-all" />
+              <img
+                src={assets.left_arrow}
+                alt="Previous"
+                className="w-6 h-6 group-hover:brightness-0 group-hover:invert transition-all"
+              />
             </button>
 
             <button
@@ -104,7 +101,11 @@ const ProjectsPage = () => {
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-[#CB3B0F] hover:scale-110 transition-all duration-300 group"
               aria-label="Next project"
             >
-              <img src={assets.right_arrow} alt="Next" className="w-6 h-6 group-hover:brightness-0 group-hover:invert transition-all" />
+              <img
+                src={assets.right_arrow}
+                alt="Next"
+                className="w-6 h-6 group-hover:brightness-0 group-hover:invert transition-all"
+              />
             </button>
 
             {/* Projects Grid */}
@@ -112,7 +113,9 @@ const ProjectsPage = () => {
               <div
                 className="flex gap-6 transition-transform duration-500 ease-in-out"
                 style={{
-                  transform: `translateX(-${(currentIndex * 100) / cardsToShow}%)`,
+                  transform: `translateX(-${
+                    (currentIndex * 100) / cardsToShow
+                  }%)`,
                 }}
               >
                 {projectsData.map((project, index) => (
@@ -128,20 +131,10 @@ const ProjectsPage = () => {
                           className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       </div>
-                      <div className="p-6">
+                      <div className="p-5">
                         <h3 className="text-2xl font-bold text-gray-800 mb-2">
                           {project.title}
                         </h3>
-                        <p className="text-gray-600 mb-2">
-                          <span className="inline-block mr-2">📍</span>
-                          {project.location}
-                        </p>
-                        <p className="text-2xl font-bold text-[#CB3B0F] mb-4">
-                          {project.price}
-                        </p>
-                        <button className="w-full bg-[#CB3B0F] text-white py-3 rounded-lg font-semibold hover:bg-[#FFAE00] transition-colors duration-300">
-                          View Details
-                        </button>
                       </div>
                     </div>
                   </div>
@@ -183,7 +176,8 @@ const ProjectsPage = () => {
             Have a Project in Mind?
           </h3>
           <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-            Let's collaborate and bring your ideas to life. We're here to help you succeed.
+            Let's collaborate and bring your ideas to life. We're here to help
+            you succeed.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <button className="bg-white text-[#CB3B0F] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
