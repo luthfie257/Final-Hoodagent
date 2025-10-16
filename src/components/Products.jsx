@@ -30,8 +30,11 @@ const Products = () => {
     "All",
     "Apparel",
     "Accessories",
-    "Stationery",
-    "Lifestyle",
+    "T-shirts",
+    "Polo Shirts",
+    "jersey",
+    "Hoodies",
+    "Work Shirts",
   ];
 
   const filteredProducts =

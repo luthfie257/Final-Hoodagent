@@ -31,8 +31,11 @@ const ProductsPage = () => {
     "All",
     "Apparel",
     "Accessories",
-    "Stationery",
-    "Lifestyle",
+    "T-shirts",
+    "Polo Shirts",
+    "jersey",
+    "Hoodies",
+    "Work Shirts",
   ];
 
   const filteredProducts = productsData.filter((product) => {

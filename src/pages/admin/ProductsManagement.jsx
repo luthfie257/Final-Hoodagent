@@ -17,7 +17,16 @@ const ProductsManagement = () => {
     stock: "",
   });
 
-  const categories = ["Apparel", "Accessories", "Stationery", "Lifestyle"];
+  const categories = [
+    "Apparel",
+    "All",
+    "Accessories",
+    "T-shirts",
+    "Polo Shirts",
+    "jersey",
+    "Hoodies",
+    "Work Shirts",
+  ];
 
   // Fetch products
   const fetchProducts = async () => {
@@ -92,7 +101,10 @@ const ProductsManagement = () => {
 
     try {
       if (editingProduct) {
-        await axios.put(`${API_URL}/products/${editingProduct.id}`, productData);
+        await axios.put(
+          `${API_URL}/products/${editingProduct.id}`,
+          productData
+        );
       } else {
         await axios.post(`${API_URL}/products`, productData);
       }
@@ -130,7 +142,9 @@ const ProductsManagement = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Products Management</h1>
+        <h1 className="text-3xl font-bold text-gray-800">
+          Products Management
+        </h1>
         <button
           onClick={() => openModal()}
           className="bg-[#CB3B0F] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300"
@@ -145,12 +159,24 @@ const ProductsManagement = () => {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Image</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Name</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Category</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Price</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Stock</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Actions</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                  Image
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                  Name
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                  Category
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                  Price
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                  Stock
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -164,8 +190,12 @@ const ProductsManagement = () => {
                     />
                   </td>
                   <td className="px-6 py-4">
-                    <p className="font-semibold text-gray-800">{product.name}</p>
-                    <p className="text-sm text-gray-500">{product.description}</p>
+                    <p className="font-semibold text-gray-800">
+                      {product.name}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {product.description}
+                    </p>
                   </td>
                   <td className="px-6 py-4">
                     <span className="px-3 py-1 bg-orange-100 text-[#CB3B0F] rounded-full text-sm font-semibold">
@@ -176,7 +206,13 @@ const ProductsManagement = () => {
                     {formatPrice(product.price)}
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${product.stock < 20 ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        product.stock < 20
+                          ? "bg-red-100 text-red-600"
+                          : "bg-green-100 text-green-600"
+                      }`}
+                    >
                       {product.stock}
                     </span>
                   </td>
@@ -222,7 +258,9 @@ const ProductsManagement = () => {
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                 />
               </div>
@@ -234,7 +272,9 @@ const ProductsManagement = () => {
                 <select
                   required
                   value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, category: e.target.value })
+                  }
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                 >
                   <option value="">Select Category</option>
@@ -255,7 +295,9 @@ const ProductsManagement = () => {
                     type="number"
                     required
                     value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                   />
                 </div>
@@ -268,7 +310,9 @@ const ProductsManagement = () => {
                     type="number"
                     required
                     value={formData.stock}
-                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, stock: e.target.value })
+                    }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                   />
                 </div>
@@ -281,7 +325,9 @@ const ProductsManagement = () => {
                 <textarea
                   required
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   rows="3"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                 ></textarea>
