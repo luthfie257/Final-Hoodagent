@@ -98,10 +98,10 @@ const Projects = () => {
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-          Our <span className="text-[#CB3B0F]">Catalog</span>
+          Our <span className="text-[#CB3B0F]">Catalogue</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Explore our featured projects and discover amazing opportunities
+          Explore our featured Catalogue and discover amazing opportunities
         </p>
       </motion.div>
 
@@ -137,7 +137,9 @@ const Projects = () => {
             <div
               className="flex gap-8 transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${(currentIndex * 100) / cardsToShow}%)`,
+                transform: `translateX(-${
+                  (currentIndex * 100) / cardsToShow
+                }%)`,
               }}
             >
               {projectsData.map((project, index) => (
@@ -191,7 +193,7 @@ const Projects = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Want to See More Projects?
+              Want to See More Catalogue?
             </h3>
             <p className="text-white/90 mb-8 max-w-2xl mx-auto">
               Browse our complete catalog of projects and exclusive collections
@@ -200,7 +202,7 @@ const Projects = () => {
               to="/projects"
               className="inline-block bg-white text-[#CB3B0F] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
             >
-              View All Projects
+              View All Catalogue
             </Link>
           </motion.div>
         </div>
