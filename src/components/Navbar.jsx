@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { assets } from "./../assets/assets";
+import { useCart } from "../context/CartContext";
+import CartModal from "./CartModal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const { getTotalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +82,20 @@ const Navbar = () => {
           </ul>
         </div>
 
+        {/* Cart Icon - Desktop */}
+        <button
+          onClick={() => setIsCartModalOpen(true)}
+          className="hidden md:flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white hover:text-[#CB3B0F] text-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-110 relative"
+          title="Shopping Cart"
+        >
+          <i className="bx bx-cart text-3xl"></i>
+          {getTotalItems() > 0 && (
+            <span className="absolute -top-1 -right-1 bg-[#CB3B0F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
+              {getTotalItems()}
+            </span>
+          )}
+        </button>
+
         {/* Mobile Menu Button */}
         <button
           className="md:hidden text-white"
@@ -140,8 +158,33 @@ const Navbar = () => {
           >
             Products
           </Link>
+
+          {/* Cart Link - Mobile */}
+          <button
+            onClick={() => {
+              setIsMenuOpen(false);
+              setIsCartModalOpen(true);
+            }}
+            className="flex items-center justify-between bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#CB3B0F] transition-all duration-300 mt-4 w-full"
+          >
+            <div className="flex items-center gap-3">
+              <i className="bx bx-cart text-2xl"></i>
+              <span>Shopping Cart</span>
+            </div>
+            {getTotalItems() > 0 && (
+              <span className="bg-[#CB3B0F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                {getTotalItems()}
+              </span>
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Cart Modal */}
+      <CartModal
+        isOpen={isCartModalOpen}
+        onClose={() => setIsCartModalOpen(false)}
+      />
     </div>
   );
 };

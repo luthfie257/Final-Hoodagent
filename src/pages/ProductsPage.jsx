@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
+import { useCart } from "../context/CartContext";
 
 const API_URL = "http://localhost:5000";
 
@@ -10,6 +11,8 @@ const ProductsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
+  const [addedToCart, setAddedToCart] = useState(null);
 
   // Fetch products from json-server
   useEffect(() => {
@@ -55,17 +58,19 @@ const ProductsPage = () => {
     }).format(price);
   };
 
-  const handleWhatsAppOrder = (product) => {
-    const phoneNumber = "6281321899509"; // WhatsApp number without + and spaces
-    const message = `Halo, saya tertarik dengan produk:\n\n*${
-      product.name
-    }*\nHarga: ${formatPrice(product.price)}\nKategori: ${
-      product.category
-    }\n\nApakah produk ini masih tersedia?`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(whatsappUrl, "_blank");
+  const handleAddToCart = (product) => {
+    const productForCart = {
+      ...product,
+      rawPrice: product.price, // Save original price number
+      price: formatPrice(product.price), // Formatted string for display
+    };
+    addToCart(productForCart);
+    setAddedToCart(product.id);
+
+    // Reset notification after 2 seconds
+    setTimeout(() => {
+      setAddedToCart(null);
+    }, 2000);
   };
 
   return (
@@ -183,11 +188,24 @@ const ProductsPage = () => {
                     </div>
 
                     <button
-                      onClick={() => handleWhatsAppOrder(product)}
-                      className="w-full bg-[#25D366] text-white py-3 rounded-lg font-semibold hover:bg-[#128C7E] transition-all duration-300 group-hover:shadow-lg flex items-center justify-center gap-2"
+                      onClick={() => handleAddToCart(product)}
+                      className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
+                        addedToCart === product.id
+                          ? "bg-green-500 text-white"
+                          : "bg-[#CB3B0F] text-white hover:bg-[#FFAE00] hover:text-gray-900"
+                      }`}
                     >
-                      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB/UlEQVR4AeSU0XXCMAxF0y5SmKRlksIkwCTQSaCTAJPQe0VsbCcpHz18NceKFflJT5LtvHZPfv4BwfV6nSEb5IA4TrzUd8zLRx3+tUUE2BDghKyRGbJHjojD4JKI8XtURgkIbNYp8Pbl9syZVr0siDZHtsgavFVJyGc9RgmA7BDHgoCjGWI/I65JJFYiq1TPMiAgG50+QJjtke+BE2t5QHLmw4rE2Uo+76Mi6IMJ2uOYem35tuvu1WhgJVlhXhLD5FBvoyLAlBbtbQc49dU9SWvARkdKqMK1BO+69hmpmpnzQ+l9JIkYyaElkN2jmNYzAQF0Tvap+ZsF94LpNloCrRlAUAnsre1KJ0vMlLyxkP3Ru5bAgNqzQGJF7okbGCTsjXvibfbEZSxK24EBQZRoAMDlKEk8UYrBPPtB2oPN/tLrMbUVGEiQRzUAvqiivFRllepfYkgqVVPtVUVgIMA6mR1qPVxHvFTeXm+5vw8vo3iTKu9POFcEYek6K6iy6JoHEisKDJmLt03a4kCU8IoAcLpYF3R/0UkMUvp5qtxo2+J+uDYIrrEiwJAuieUqn9icPTFK/J4hP2A3sGu2JVqFbTBaAjO1dI9l9BgP+x0biW6vJXWfxBh4NHOwMSoCemtQZYMuUcdsb/3WbkDFP602iSLQ1KsimAL9xf50gh8AAAD//wTlNwUAAAAGSURBVAMADOfhMUai0GQAAAAASUVORK5CYII=" />
-                      Pesan via WhatsApp
+                      {addedToCart === product.id ? (
+                        <>
+                          <i className="bx bx-check-circle text-xl"></i>
+                          Added to Cart!
+                        </>
+                      ) : (
+                        <>
+                          <i className="bx bx-cart-add text-xl"></i>
+                          Add to Cart
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
