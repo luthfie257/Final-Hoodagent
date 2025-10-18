@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:v2.boxicons.com)"
+      "WebFetch(domain:v2.boxicons.com)",
+      "Bash(npm install multer express cors --save)",
+      "Bash(npm run server)",
+      "Bash(npm install)",
+      "Bash(curl -s http://localhost:5000/products)",
+      "Bash(awk '{print $2}')",
+      "Bash(xargs kill)"
     ],
     "deny": [],
     "ask": []

@@ -8,13 +8,13 @@ const ProductsManagement = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [uploadingImages, setUploadingImages] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     category: "",
     price: "",
-    image: "",
+    images: [], // Changed from 'image' to 'images' array
     description: "",
-    stock: "",
   });
 
   const categories = [
@@ -44,32 +44,88 @@ const ProductsManagement = () => {
     fetchProducts();
   }, []);
 
-  // Handle image upload (convert to base64)
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData({ ...formData, image: reader.result });
-      };
-      reader.readAsDataURL(file);
+  // Handle multiple images upload
+  const handleImagesUpload = async (e) => {
+    const files = Array.from(e.target.files);
+
+    if (files.length === 0) return;
+
+    // Check total images count (max 5)
+    if (formData.images.length + files.length > 5) {
+      alert("Maximum 5 images allowed per product!");
+      return;
     }
+
+    setUploadingImages(true);
+
+    try {
+      const formDataToUpload = new FormData();
+      files.forEach(file => {
+        formDataToUpload.append('images', file);
+      });
+
+      const response = await axios.post(`${API_URL}/api/upload-images`, formDataToUpload, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.data.success) {
+        setFormData({
+          ...formData,
+          images: [...formData.images, ...response.data.paths]
+        });
+      }
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      alert("Failed to upload images. Please try again.");
+    } finally {
+      setUploadingImages(false);
+    }
+  };
+
+  // Remove image from array
+  const removeImage = async (index, imagePath) => {
+    // Delete from server if it's a server path
+    if (imagePath && imagePath.startsWith('/uploads/')) {
+      try {
+        await axios.delete(`${API_URL}/api/delete-image`, {
+          data: { imagePath }
+        });
+      } catch (error) {
+        console.error("Error deleting image:", error);
+      }
+    }
+
+    // Remove from form data
+    const newImages = formData.images.filter((_, i) => i !== index);
+    setFormData({ ...formData, images: newImages });
+  };
+
+  // Reorder images (drag and drop)
+  const moveImage = (fromIndex, toIndex) => {
+    const newImages = [...formData.images];
+    const [movedImage] = newImages.splice(fromIndex, 1);
+    newImages.splice(toIndex, 0, movedImage);
+    setFormData({ ...formData, images: newImages });
   };
 
   // Open modal for add/edit
   const openModal = (product = null) => {
     if (product) {
       setEditingProduct(product);
-      setFormData(product);
+      setFormData({
+        ...product,
+        images: product.images || (product.image ? [product.image] : []) // Handle old single image format
+      });
     } else {
       setEditingProduct(null);
       setFormData({
         name: "",
         category: "",
         price: "",
-        image: "",
+        images: [],
         description: "",
-        stock: "",
       });
     }
     setIsModalOpen(true);
@@ -83,9 +139,8 @@ const ProductsManagement = () => {
       name: "",
       category: "",
       price: "",
-      image: "",
+      images: [],
       description: "",
-      stock: "",
     });
   };
 
@@ -93,10 +148,15 @@ const ProductsManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate at least one image
+    if (!formData.images || formData.images.length === 0) {
+      alert("Please upload at least one product image!");
+      return;
+    }
+
     const productData = {
       ...formData,
       price: Number(formData.price),
-      stock: Number(formData.stock),
     };
 
     try {
@@ -112,6 +172,7 @@ const ProductsManagement = () => {
       closeModal();
     } catch (error) {
       console.error("Error saving product:", error);
+      alert("Failed to save product. Please try again.");
     }
   };
 
@@ -172,22 +233,38 @@ const ProductsManagement = () => {
                   Price
                 </th>
                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                  Stock
-                </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {products.map((product) => (
+              {products.map((product) => {
+                // Get first image (support both old 'image' and new 'images' format)
+                const mainImage = product.images && product.images.length > 0
+                  ? product.images[0]
+                  : product.image;
+
+                return (
                 <tr key={product.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-16 h-16 object-cover rounded-lg"
-                    />
+                    {mainImage ? (
+                      <div className="relative">
+                        <img
+                          src={mainImage}
+                          alt={product.name}
+                          className="w-16 h-16 object-cover rounded-lg"
+                        />
+                        {product.images && product.images.length > 1 && (
+                          <span className="absolute -top-2 -right-2 bg-[#CB3B0F] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                            {product.images.length}
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <i className="bx bx-image text-2xl text-gray-400"></i>
+                      </div>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     <p className="font-semibold text-gray-800">
@@ -206,17 +283,6 @@ const ProductsManagement = () => {
                     {formatPrice(product.price)}
                   </td>
                   <td className="px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        product.stock < 20
-                          ? "bg-red-100 text-red-600"
-                          : "bg-green-100 text-green-600"
-                      }`}
-                    >
-                      {product.stock}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
                     <div className="flex gap-2">
                       <button
                         onClick={() => openModal(product)}
@@ -233,7 +299,8 @@ const ProductsManagement = () => {
                     </div>
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -301,21 +368,6 @@ const ProductsManagement = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                   />
                 </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Stock
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={formData.stock}
-                    onChange={(e) =>
-                      setFormData({ ...formData, stock: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
-                  />
-                </div>
               </div>
 
               <div>
@@ -335,27 +387,105 @@ const ProductsManagement = () => {
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Product Image
+                  Product Images ({formData.images.length}/5)
                 </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
-                />
-                {formData.image && (
-                  <img
-                    src={formData.image}
-                    alt="Preview"
-                    className="mt-4 w-32 h-32 object-cover rounded-lg"
-                  />
+
+                {/* Upload Area */}
+                {formData.images.length < 5 && (
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#CB3B0F] transition-colors mb-4">
+                    <input
+                      type="file"
+                      id="images-input"
+                      multiple
+                      accept="image/jpeg,image/jpg,image/png,image/webp"
+                      onChange={handleImagesUpload}
+                      className="hidden"
+                      disabled={uploadingImages}
+                    />
+                    <label
+                      htmlFor="images-input"
+                      className="cursor-pointer"
+                    >
+                      {uploadingImages ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#CB3B0F] mb-3"></div>
+                          <p className="text-sm text-gray-600">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="text-gray-400 mb-2">
+                            <i className="bx bx-cloud-upload text-6xl"></i>
+                          </div>
+                          <p className="text-sm text-gray-600 font-medium mb-1">
+                            Click to upload images
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            JPG, PNG or WebP (max 5MB each, max 5 images)
+                          </p>
+                        </>
+                      )}
+                    </label>
+                  </div>
                 )}
+
+                {/* Images Preview Grid */}
+                {formData.images.length > 0 && (
+                  <div className="grid grid-cols-5 gap-3">
+                    {formData.images.map((image, index) => (
+                      <div
+                        key={index}
+                        className="relative group aspect-square"
+                        draggable
+                        onDragStart={(e) => e.dataTransfer.setData('text/plain', index)}
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
+                          moveImage(fromIndex, index);
+                        }}
+                      >
+                        <img
+                          src={image}
+                          alt={`Product ${index + 1}`}
+                          className="w-full h-full object-cover rounded-lg border-2 border-gray-200 group-hover:border-[#CB3B0F] transition-all cursor-move"
+                        />
+
+                        {/* Main Image Badge */}
+                        {index === 0 && (
+                          <span className="absolute top-1 left-1 bg-[#CB3B0F] text-white text-xs px-2 py-1 rounded">
+                            Main
+                          </span>
+                        )}
+
+                        {/* Image Number */}
+                        <span className="absolute bottom-1 left-1 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                          {index + 1}
+                        </span>
+
+                        {/* Remove Button */}
+                        <button
+                          type="button"
+                          onClick={() => removeImage(index, image)}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                        >
+                          <i className="bx bx-x text-lg"></i>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <p className="text-xs text-gray-500 mt-2">
+                  {formData.images.length === 0 && "Upload at least 1 image (required)"}
+                  {formData.images.length > 0 && "First image will be the main product image. Drag to reorder."}
+                </p>
               </div>
 
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-[#CB3B0F] text-white py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all"
+                  disabled={uploadingImages}
+                  className="flex-1 bg-[#CB3B0F] text-white py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {editingProduct ? "Update Product" : "Add Product"}
                 </button>

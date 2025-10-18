@@ -32,10 +32,18 @@ const CartModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  // Get product image by ID
+  // Get product image by ID (support both old single image and new images array)
   const getProductImage = (productId) => {
-    const product = productsData.find(p => p.id === productId);
-    return product?.image || '/placeholder-image.png';
+    const product = productsData.find(p => String(p.id) === String(productId));
+    if (!product) return '/placeholder-image.png';
+
+    // Support multiple images format (use first image)
+    if (product.images && product.images.length > 0) {
+      return product.images[0];
+    }
+
+    // Fallback to old single image format
+    return product.image || '/placeholder-image.png';
   };
 
   // Prevent body scroll when modal is open
