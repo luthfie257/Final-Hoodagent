@@ -18,12 +18,17 @@ export const CartProvider = ({ children }) => {
       if (savedCart) {
         const parsed = JSON.parse(savedCart);
         // Clean old data: remove image base64 to prevent quota issues
-        const cleaned = parsed.map(item => {
+        const cleaned = parsed.map((item) => {
           const { image, description, stock, ...essentialData } = item;
           return {
             ...essentialData,
-            rawPrice: item.rawPrice || (typeof item.price === 'number' ? item.price : 0),
-            price: typeof item.price === 'string' ? item.price : `Rp ${item.price || 0}`,
+            rawPrice:
+              item.rawPrice ||
+              (typeof item.price === "number" ? item.price : 0),
+            price:
+              typeof item.price === "string"
+                ? item.price
+                : `Rp ${item.price || 0}`,
             imageUrl: item.imageUrl || null,
           };
         });
@@ -43,7 +48,7 @@ export const CartProvider = ({ children }) => {
       localStorage.setItem("hoodagent_cart", JSON.stringify(cartItems));
     } catch (error) {
       console.error("Error saving cart to localStorage:", error);
-      if (error.name === 'QuotaExceededError') {
+      if (error.name === "QuotaExceededError") {
         // If quota exceeded, clear old cart and try again with current item only
         console.warn("LocalStorage quota exceeded. Clearing old cart data.");
         localStorage.removeItem("hoodagent_cart");
@@ -67,12 +72,15 @@ export const CartProvider = ({ children }) => {
       } else {
         // Add new item with quantity 1, EXCLUDE large image data
         const { image, description, stock, ...essentialData } = product;
-        return [...prevItems, {
-          ...essentialData,
-          quantity: 1,
-          // Only store image URL if it's a URL, not base64
-          imageUrl: image && !image.startsWith('data:') ? image : null
-        }];
+        return [
+          ...prevItems,
+          {
+            ...essentialData,
+            quantity: 1,
+            // Only store image URL if it's a URL, not base64
+            imageUrl: image && !image.startsWith("data:") ? image : null,
+          },
+        ];
       }
     });
   };
@@ -128,3 +136,4 @@ export const CartProvider = ({ children }) => {
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
+//S
