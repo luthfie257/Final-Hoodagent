@@ -8,7 +8,7 @@ import AboutPage from "./pages/AboutPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProductsPage from "./pages/ProductsPage";
 import EventsPage from "./pages/EventsPage";
-import DivisiPage from "./pages/DivisiPage";
+import GalleryPage from "./pages/GalleryPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminRegisterPage from "./pages/AdminRegisterPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -30,7 +30,7 @@ const App = () => {
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/events" element={<EventsPage />} />
-            <Route path="/divisi" element={<DivisiPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
 
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLoginPage />} />

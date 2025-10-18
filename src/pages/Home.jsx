@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import About from "../components/About";
-import Projects from "../components/Projects";
+import Gallery from "../components/Gallery";
 import Products from "../components/Products";
 import Events from "../components/Events";
 import Divisi from "../components/Divisi";
@@ -33,7 +33,7 @@ const Home = () => {
     <div className="w-full overflow-hidden">
       <Header />
       <About />
-      <Projects />
+      <Gallery />
       <Products />
       <Events />
       <Divisi />

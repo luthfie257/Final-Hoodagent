@@ -68,7 +68,7 @@ const Navbar = () => {
               Event
             </Link>
             <Link
-              to="/divisi"
+              to="/gallery"
               className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
             >
               Gallery
@@ -85,10 +85,10 @@ const Navbar = () => {
         {/* Cart Icon - Desktop */}
         <button
           onClick={() => setIsCartModalOpen(true)}
-          className="hidden md:flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white hover:text-[#CB3B0F] text-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-110 relative"
+          className="hidden md:flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full hover:bg-[#CB3B0F] text-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-110 relative"
           title="Shopping Cart"
         >
-          <i className="bx bx-cart text-3xl"></i>
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABPElEQVR4AexSwXHCMBA8UgmpJKGSmG8oIpMiyJt0ApUAlZhdz+7NGNtIZuCH5tYrne6055Pe4snjJVBscLaofew4WjkF7HgQL31OCiw0sPEL0HZyVROS1gBtxw+RAlwI3vzUeg59KfggjoEAyj1hcw8scS1zRRzPfBwRQ4HOG/Ev/hEXCcU0CmJrWWS3HPxB541wBXlZUR4fCjmLOxoVuGoTiisbTmsAmu+Q88kWcdOvifMasC1rFZfxo3+gXSZoGiskluwdAb3qmTwpgGAKOMHPjzmzMCmgU9gmCjXlW2hb5fTopoD+YoUMvypM59lNAR5FEaDmDhaMv0ZRgAlozxagbbk24Bj1e59cJYDAb4Bm5pzw2kxfD7UCf8oyaxlem+1PrhLAHWwA2iYzMYFj1I+ttCqBjL5j8nSBCwAAAP//65B3FgAAAAZJREFUAwBU5NgxRNnEygAAAABJRU5ErkJggg==" />
           {getTotalItems() > 0 && (
             <span className="absolute -top-1 -right-1 bg-[#CB3B0F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
               {getTotalItems()}
@@ -145,7 +145,7 @@ const Navbar = () => {
             Event
           </Link>
           <Link
-            to="/divisi"
+            to="/gallery"
             className="text-white text-lg hover:text-[#FFAE00] transition-colors duration-300"
             onClick={() => setIsMenuOpen(false)}
           >

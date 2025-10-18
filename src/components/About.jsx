@@ -5,10 +5,10 @@ import { assets } from "../assets/assets";
 
 const About = () => {
   const stats = [
-    { value: "500+", label: "Projects Completed" },
-    { value: "50+", label: "Events Organized" },
+    { value: "160+", label: "Product" },
+    { value: "1600+", label: "Followers" },
     { value: "1000+", label: "Community Members" },
-    { value: "20+", label: "Team Members" },
+    { value: "5", label: "Years" },
   ];
 
   return (
