@@ -36,54 +36,47 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-7 text-white font-medium">
-          <Link
-            to="/"
-            className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
-          >
-            Our Story
-          </Link>
-          <Link
-            to="/projects"
-            className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
-          >
-            Catalog
-          </Link>
-          <Link
-            to="/events"
-            className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
-          >
-            Event
-          </Link>
-          <Link
-            to="/divisi"
-            className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
-          >
-            Divisi
-          </Link>
-          <Link
-            to="/products"
-            className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
-          >
-            Products
-          </Link>
-        </ul>
-
-        {/* Desktop Auth Icon */}
-        <Link
-          to="/admin/login"
-          className="hidden md:flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white hover:text-[#CB3B0F] text-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-110"
-          title="Login / Register"
-        >
-          <i className='bx bxs-user-circle text-3xl'></i>
-        </Link>
+        {/* Desktop Menu - Centered */}
+        <div className="hidden md:flex flex-1 justify-center">
+          <ul className="flex gap-7 text-white font-medium">
+            <Link
+              to="/"
+              className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
+            >
+              Home
+            </Link>
+            <Link
+              to="/about"
+              className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
+            >
+              Our Story
+            </Link>
+            {/* <Link
+              to="/projects"
+              className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
+            >
+              Catalog
+            </Link> */}
+            <Link
+              to="/events"
+              className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
+            >
+              Event
+            </Link>
+            <Link
+              to="/divisi"
+              className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
+            >
+              Gallery
+            </Link>
+            <Link
+              to="/products"
+              className="cursor-pointer hover:text-[#FFAE00] transition-colors duration-300"
+            >
+              Products
+            </Link>
+          </ul>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -146,16 +139,6 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Products
-          </Link>
-
-          {/* Mobile Auth Icon */}
-          <Link
-            to="/admin/login"
-            className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#CB3B0F] transition-all duration-300 mt-4"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <i className='bx bxs-user-circle text-2xl'></i>
-            <span>Login / Register</span>
           </Link>
         </div>
       </div>
