@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import galleryBg from "../assets/galery_bg.png";
 
 const GalleryPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -86,25 +87,12 @@ const GalleryPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="min-h-[50vh] bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] flex items-center justify-center text-center px-6">
-        <div className="max-w-4xl mx-auto pt-32 pb-16">
-          <motion.h1
-            className="text-5xl md:text-6xl font-bold text-white mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Hood Agent Gallery
-          </motion.h1>
-          <motion.p
-            className="text-xl text-white/90"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Explore our latest collection and lookbook
-          </motion.p>
-        </div>
+      <div className="relative min-h-[70vh] overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${galleryBg})` }}
+        ></div>
       </div>
 
       {/* Pinterest-Style Masonry Grid */}

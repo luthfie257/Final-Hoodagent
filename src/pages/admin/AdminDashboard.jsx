@@ -20,6 +20,11 @@ const AdminDashboard = () => {
       label: "Products",
     },
     {
+      path: "/admin/dashboard/event-products",
+      icon: "🎉",
+      label: "Event Products",
+    },
+    {
       path: "/admin/dashboard/projects",
       icon: "📁",
       label: "Catalog (Projects)",

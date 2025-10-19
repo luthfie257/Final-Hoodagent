@@ -60,7 +60,7 @@ const ProjectsPage = () => {
       <Navbar />
 
       {/* Hero Section with Background Image */}
-      <div className="relative min-h-[70vh] md:min-h-[90vh] flex items-center justify-center text-center overflow-hidden">
+      <div className="relative min-h-[70vh] flex items-center justify-center text-center overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"

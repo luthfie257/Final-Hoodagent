@@ -149,6 +149,55 @@ server.delete('/products/:id', (req, res) => {
   }
 });
 
+// Event Products routes
+server.get('/event-products', (req, res) => {
+  res.json(db['event-products'] || []);
+});
+
+server.get('/event-products/:id', (req, res) => {
+  const product = db['event-products']?.find(p => String(p.id) === String(req.params.id));
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404).json({ error: 'Event product not found' });
+  }
+});
+
+server.post('/event-products', (req, res) => {
+  if (!db['event-products']) {
+    db['event-products'] = [];
+  }
+  const newProduct = {
+    id: db['event-products'].length > 0 ? String(Math.max(...db['event-products'].map(p => parseInt(p.id) || 0)) + 1) : "1",
+    ...req.body
+  };
+  db['event-products'].push(newProduct);
+  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  res.status(201).json(newProduct);
+});
+
+server.put('/event-products/:id', (req, res) => {
+  const index = db['event-products']?.findIndex(p => String(p.id) === String(req.params.id));
+  if (index !== -1) {
+    db['event-products'][index] = { ...db['event-products'][index], ...req.body, id: String(req.params.id) };
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    res.json(db['event-products'][index]);
+  } else {
+    res.status(404).json({ error: 'Event product not found' });
+  }
+});
+
+server.delete('/event-products/:id', (req, res) => {
+  const index = db['event-products']?.findIndex(p => String(p.id) === String(req.params.id));
+  if (index !== -1) {
+    const deleted = db['event-products'].splice(index, 1);
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    res.json(deleted[0]);
+  } else {
+    res.status(404).json({ error: 'Event product not found' });
+  }
+});
+
 const PORT = 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

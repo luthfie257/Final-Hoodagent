@@ -86,36 +86,8 @@ const ProductsPage = () => {
     <div className="w-full overflow-hidden">
       <Navbar />
 
-      {/* Hero Section */}
-      <div className="min-h-[50vh] bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] flex items-center justify-center text-center px-6">
-        <div className="max-w-4xl mx-auto pt-32 pb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Hood Agent Products
-          </h1>
-          <p className="text-xl text-white/90 mb-8">
-            Exclusive merchandise and collectibles for the Hood Agent community
-          </p>
-
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 rounded-full text-gray-800 text-lg focus:outline-none focus:ring-4 focus:ring-white/50 shadow-xl"
-              />
-              <span className="absolute right-6 top-1/2 -translate-y-1/2 text-2xl">
-                🔍
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Products Section */}
-      <section className="container mx-auto py-20 px-6 md:px-20 lg:px-32">
+      <section className="container mx-auto pt-32 pb-20 px-6 md:px-20 lg:px-32">
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {categories.map((category) => (
@@ -156,15 +128,16 @@ const ProductsPage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {filteredProducts.map((product) => {
                 // Get main image (support both old 'image' and new 'images' format)
-                const mainImage = product.images && product.images.length > 0
-                  ? product.images[0]
-                  : product.image;
+                const mainImage =
+                  product.images && product.images.length > 0
+                    ? product.images[0]
+                    : product.image;
 
                 return (
                   <div
                     key={product.id}
                     onClick={() => handleProductClick(product)}
-                    className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer"
+                    className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer flex flex-col h-full"
                   >
                     <div className="relative overflow-hidden bg-gray-100 h-64">
                       <img
@@ -187,12 +160,12 @@ const ProductsPage = () => {
                       </div>
                     </div>
 
-                    <div className="p-6">
+                    <div className="p-6 flex flex-col flex-grow">
                       <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-xl font-bold text-gray-800 group-hover:text-[#CB3B0F] transition-colors duration-300">
+                        <h3 className="text-xl font-bold text-gray-800 group-hover:text-[#CB3B0F] transition-colors duration-300 line-clamp-2 flex-grow pr-2">
                           {product.name}
                         </h3>
-                        <span className="px-2 py-1 bg-orange-50 text-[#CB3B0F] text-xs font-semibold rounded">
+                        <span className="px-2 py-1 bg-orange-50 text-[#CB3B0F] text-xs font-semibold rounded shrink-0">
                           {product.category}
                         </span>
                       </div>
@@ -209,7 +182,7 @@ const ProductsPage = () => {
 
                       <button
                         onClick={(e) => handleAddToCart(product, e)}
-                        className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
+                        className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 mt-auto ${
                           addedToCart === String(product.id)
                             ? "bg-green-500 text-white"
                             : "bg-[#CB3B0F] text-white hover:bg-[#FFAE00] hover:text-gray-900"

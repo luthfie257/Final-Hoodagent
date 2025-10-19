@@ -104,7 +104,7 @@ const Products = () => {
             <motion.div
               key={product.id}
               onClick={() => handleProductClick(product)}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer"
+              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer flex flex-col h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -132,12 +132,12 @@ const Products = () => {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow">
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-[#CB3B0F] transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-[#CB3B0F] transition-colors duration-300 line-clamp-2 flex-grow pr-2">
                     {product.name}
                   </h3>
-                  <span className="px-2 py-1 bg-orange-50 text-[#CB3B0F] text-xs font-semibold rounded">
+                  <span className="px-2 py-1 bg-orange-50 text-[#CB3B0F] text-xs font-semibold rounded shrink-0">
                     {product.category}
                   </span>
                 </div>
@@ -154,7 +154,7 @@ const Products = () => {
 
                 <button
                   onClick={(e) => handleAddToCart(product, e)}
-                  className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
+                  className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 mt-auto ${
                     addedToCart === String(product.id)
                       ? "bg-green-500 text-white"
                       : "bg-[#CB3B0F] text-white hover:bg-[#FFAE00] hover:text-gray-900"
