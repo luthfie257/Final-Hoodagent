@@ -1,5 +1,5 @@
 import logo from "./logo.png";
-import logo_dark from "./logo.png";
+import logo_dark from "./logo_dark.png";
 import cross_icon from "./cross_icon.svg";
 import menu_icon from "./menu_icon.svg";
 import star_icon from "./star_icon.svg";

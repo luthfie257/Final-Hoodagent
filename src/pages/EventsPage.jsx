@@ -90,9 +90,6 @@ const EventsPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-6 py-2 bg-[#FFAE00] text-[#CB3B0F] font-bold rounded-full text-sm mb-4">
-              SPECIAL EVENT
-            </span>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">
               Loyalitas Anniversary
             </h1>
@@ -117,20 +114,15 @@ const EventsPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <a
-              href="#products"
-              className="inline-flex items-center gap-2 bg-[#CB3B0F] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300 hover:scale-105 shadow-lg"
-            >
-              <i className="bx bx-shopping-bag text-xl"></i>
-              Shop Collection
-            </a>
-          </motion.div>
+          ></motion.div>
         </div>
       </div>
 
       {/* Products Section */}
-      <section id="products" className="container mx-auto py-20 px-6 md:px-20 lg:px-32">
+      <section
+        id="products"
+        className="container mx-auto py-20 px-6 md:px-20 lg:px-32"
+      >
         {/* Section Header */}
         <div className="text-center mb-12">
           <motion.h2
@@ -149,7 +141,8 @@ const EventsPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Celebrate 5 years of Loyalitas with our exclusive merchandise collection
+            Celebrate 5 years of Loyalitas with our exclusive merchandise
+            collection
           </motion.p>
         </div>
 
@@ -285,7 +278,8 @@ const EventsPage = () => {
                 Celebrate with Us! 🎉
               </h3>
               <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-                Limited Edition Anniversary Merchandise - Get yours before they're gone!
+                Limited Edition Anniversary Merchandise - Get yours before
+                they're gone!
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <a

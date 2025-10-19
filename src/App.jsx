@@ -16,7 +16,7 @@ import ProductsManagement from "./pages/admin/ProductsManagement";
 import EventProductsManagement from "./pages/admin/EventProductsManagement";
 import ProjectsManagement from "./pages/admin/ProjectsManagement";
 import EventsManagement from "./pages/admin/EventsManagement";
-import DivisiManagement from "./pages/admin/DivisiManagement";
+import TestimonialsManagement from "./pages/admin/TestimonialsManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -49,7 +49,7 @@ const App = () => {
               <Route path="event-products" element={<EventProductsManagement />} />
               <Route path="projects" element={<ProjectsManagement />} />
               <Route path="events" element={<EventsManagement />} />
-              <Route path="divisi" element={<DivisiManagement />} />
+              <Route path="testimonials" element={<TestimonialsManagement />} />
             </Route>
           </Routes>
         </Router>

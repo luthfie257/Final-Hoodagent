@@ -34,8 +34,10 @@ const CartModal = ({ isOpen, onClose }) => {
 
   // Get product image by ID (support both old single image and new images array)
   const getProductImage = (productId) => {
-    const product = productsData.find(p => String(p.id) === String(productId));
-    if (!product) return '/placeholder-image.png';
+    const product = productsData.find(
+      (p) => String(p.id) === String(productId)
+    );
+    if (!product) return "/placeholder-image.png";
 
     // Support multiple images format (use first image)
     if (product.images && product.images.length > 0) {
@@ -43,18 +45,18 @@ const CartModal = ({ isOpen, onClose }) => {
     }
 
     // Fallback to old single image format
-    return product.image || '/placeholder-image.png';
+    return product.image || "/placeholder-image.png";
   };
 
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
@@ -215,7 +217,9 @@ const CartModal = ({ isOpen, onClose }) => {
 
                             <div className="flex items-center gap-2">
                               <button
-                                onClick={() => handleQuantityChange(item.id, -1)}
+                                onClick={() =>
+                                  handleQuantityChange(item.id, -1)
+                                }
                                 className="w-7 h-7 rounded-full bg-white hover:bg-gray-200 flex items-center justify-center transition-colors border border-gray-300"
                               >
                                 <i className="bx bx-minus text-sm"></i>

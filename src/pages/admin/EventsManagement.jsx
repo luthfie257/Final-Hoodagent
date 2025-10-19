@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 
 const API_URL = "http://localhost:5000";
 
@@ -8,17 +9,14 @@ const EventsManagement = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
-    date: "",
-    time: "",
     location: "",
-    category: "",
     description: "",
     status: "upcoming",
+    logo: "",
   });
-
-  const categories = ["Technology", "Networking", "Workshop", "Startup"];
 
   // Fetch events
   const fetchEvents = async () => {
@@ -36,21 +34,72 @@ const EventsManagement = () => {
     fetchEvents();
   }, []);
 
+  // Handle logo upload
+  const handleLogoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadingLogo(true);
+
+    try {
+      const formDataToUpload = new FormData();
+      formDataToUpload.append('images', file);
+
+      const response = await axios.post(`${API_URL}/api/upload-images`, formDataToUpload, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.data.success && response.data.paths.length > 0) {
+        setFormData({
+          ...formData,
+          logo: response.data.paths[0]
+        });
+      }
+    } catch (error) {
+      console.error("Error uploading logo:", error);
+      alert("Failed to upload logo. Please try again.");
+    } finally {
+      setUploadingLogo(false);
+    }
+  };
+
+  // Remove logo
+  const removeLogo = async () => {
+    if (formData.logo && formData.logo.startsWith('/uploads/')) {
+      try {
+        await axios.delete(`${API_URL}/api/delete-image`, {
+          data: { imagePath: formData.logo }
+        });
+      } catch (error) {
+        console.error("Error deleting logo:", error);
+      }
+    }
+    setFormData({ ...formData, logo: "" });
+  };
+
   // Open modal for add/edit
   const openModal = (event = null) => {
+    console.log("=== OPENING MODAL ===");
+    console.log("Event:", event);
+
     if (event) {
       setEditingEvent(event);
-      setFormData(event);
+      const newFormData = {
+        ...event,
+        logo: event.logo || ""
+      };
+      console.log("Setting form data:", newFormData);
+      setFormData(newFormData);
     } else {
       setEditingEvent(null);
       setFormData({
         title: "",
-        date: "",
-        time: "",
         location: "",
-        category: "",
         description: "",
         status: "upcoming",
+        logo: "",
       });
     }
     setIsModalOpen(true);
@@ -62,12 +111,10 @@ const EventsManagement = () => {
     setEditingEvent(null);
     setFormData({
       title: "",
-      date: "",
-      time: "",
       location: "",
-      category: "",
       description: "",
       status: "upcoming",
+      logo: "",
     });
   };
 
@@ -75,16 +122,34 @@ const EventsManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate logo only for new events
+    if (!editingEvent && !formData.logo) {
+      alert("Please upload event logo!");
+      return;
+    }
+
+    console.log("=== SUBMITTING EVENT ===");
+    console.log("Editing Event:", editingEvent);
+    console.log("Form Data:", formData);
+
     try {
       if (editingEvent) {
-        await axios.put(`${API_URL}/events/${editingEvent.id}`, formData);
+        console.log(`PUT ${API_URL}/events/${editingEvent.id}`);
+        const response = await axios.put(`${API_URL}/events/${editingEvent.id}`, formData);
+        console.log("Response:", response.data);
       } else {
-        await axios.post(`${API_URL}/events`, formData);
+        console.log(`POST ${API_URL}/events`);
+        const response = await axios.post(`${API_URL}/events`, formData);
+        console.log("Response:", response.data);
       }
       fetchEvents();
       closeModal();
     } catch (error) {
-      console.error("Error saving event:", error);
+      console.error("=== ERROR DETAIL ===");
+      console.error("Error:", error);
+      console.error("Error Response:", error.response);
+      console.error("Error Message:", error.message);
+      alert(`Failed to save event. Error: ${error.message || 'Unknown error'}`);
     }
   };
 
@@ -100,18 +165,13 @@ const EventsManagement = () => {
     }
   };
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      Technology: "bg-blue-100 text-blue-600",
-      Networking: "bg-green-100 text-green-600",
-      Workshop: "bg-purple-100 text-purple-600",
-      Startup: "bg-orange-100 text-orange-600",
-    };
-    return colors[category] || "bg-gray-100 text-gray-600";
-  };
-
   if (loading) {
-    return <div className="text-center py-8">Loading...</div>;
+    return (
+      <div className="flex flex-col items-center justify-center py-16">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[#CB3B0F] mb-4"></div>
+        <p className="text-gray-600 font-medium">Loading events...</p>
+      </div>
+    );
   }
 
   return (
@@ -133,34 +193,36 @@ const EventsManagement = () => {
             key={event.id}
             className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300"
           >
-            <div className="flex items-start justify-between mb-4">
-              <span className={`px-4 py-1 rounded-full text-sm font-semibold ${getCategoryColor(event.category)}`}>
-                {event.category}
-              </span>
-              <span className="px-3 py-1 bg-orange-100 text-[#CB3B0F] rounded-full text-xs font-semibold uppercase">
-                {event.status}
-              </span>
-            </div>
+            {/* Logo & Header */}
+            <div className="flex items-start gap-4 mb-4">
+              {/* Event Logo */}
+              {event.logo && (
+                <div className="flex-shrink-0">
+                  <img
+                    src={event.logo}
+                    alt={event.title}
+                    className="w-20 h-20 object-contain rounded-lg border-2 border-gray-200"
+                  />
+                </div>
+              )}
 
-            <h3 className="text-2xl font-bold text-gray-800 mb-3">
-              {event.title}
-            </h3>
+              <div className="flex-grow">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                  {event.title}
+                </h3>
+                <span className="px-3 py-1 bg-orange-100 text-[#CB3B0F] rounded-full text-xs font-semibold uppercase">
+                  {event.status}
+                </span>
+              </div>
+            </div>
 
             <p className="text-gray-600 mb-4 leading-relaxed">
               {event.description}
             </p>
 
-            <div className="space-y-2 mb-6">
+            <div className="mb-6">
               <div className="flex items-center text-gray-600">
-                <span className="mr-3 text-xl">📅</span>
-                <span className="font-medium">{event.date}</span>
-              </div>
-              <div className="flex items-center text-gray-600">
-                <span className="mr-3 text-xl">🕐</span>
-                <span className="font-medium">{event.time}</span>
-              </div>
-              <div className="flex items-center text-gray-600">
-                <span className="mr-3 text-xl">📍</span>
+                <i className="bx bx-map text-xl text-[#CB3B0F] mr-3"></i>
                 <span className="font-medium">{event.location}</span>
               </div>
             </div>
@@ -184,9 +246,21 @@ const EventsManagement = () => {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-2xl font-bold text-gray-800">
                 {editingEvent ? "Edit Event" : "Add New Event"}
@@ -203,38 +277,9 @@ const EventsManagement = () => {
                   required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  placeholder="e.g., Hood Agent Tech Meetup 2025"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                 />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Date
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.date}
-                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    placeholder="15 March 2025"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Time
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.time}
-                    onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    placeholder="09:00 - 17:00 WIB"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
-                  />
-                </div>
               </div>
 
               <div>
@@ -246,45 +291,25 @@ const EventsManagement = () => {
                   required
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  placeholder="e.g., Jakarta Convention Center"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Category
-                  </label>
-                  <select
-                    required
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
-                  >
-                    <option value="">Select Category</option>
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Status
-                  </label>
-                  <select
-                    required
-                    value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
-                  >
-                    <option value="upcoming">Upcoming</option>
-                    <option value="ongoing">Ongoing</option>
-                    <option value="completed">Completed</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Status
+                </label>
+                <select
+                  required
+                  value={formData.status}
+                  onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
+                >
+                  <option value="upcoming">Upcoming</option>
+                  <option value="ongoing">Ongoing</option>
+                  <option value="completed">Completed</option>
+                </select>
               </div>
 
               <div>
@@ -296,14 +321,83 @@ const EventsManagement = () => {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows="4"
+                  placeholder="Describe the event..."
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CB3B0F] focus:border-transparent"
                 ></textarea>
+              </div>
+
+              {/* Logo Upload */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Event Logo {editingEvent ? "(Optional)" : "(Required)"}
+                </label>
+
+                {/* Upload Area */}
+                {!formData.logo && (
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#CB3B0F] transition-colors">
+                    <input
+                      type="file"
+                      id="logo-input"
+                      accept="image/jpeg,image/jpg,image/png,image/webp"
+                      onChange={handleLogoUpload}
+                      className="hidden"
+                      disabled={uploadingLogo}
+                    />
+                    <label
+                      htmlFor="logo-input"
+                      className="cursor-pointer"
+                    >
+                      {uploadingLogo ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#CB3B0F] mb-3"></div>
+                          <p className="text-sm text-gray-600">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="text-gray-400 mb-2">
+                            <i className="bx bx-cloud-upload text-6xl"></i>
+                          </div>
+                          <p className="text-sm text-gray-600 font-medium mb-1">
+                            Click to upload event logo
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            JPG, PNG or WebP (max 5MB)
+                          </p>
+                        </>
+                      )}
+                    </label>
+                  </div>
+                )}
+
+                {/* Logo Preview */}
+                {formData.logo && (
+                  <div className="relative inline-block">
+                    <img
+                      src={formData.logo}
+                      alt="Event Logo"
+                      className="w-32 h-32 object-contain rounded-lg border-2 border-gray-200"
+                    />
+                    <button
+                      type="button"
+                      onClick={removeLogo}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors"
+                    >
+                      <i className="bx bx-x text-lg"></i>
+                    </button>
+                  </div>
+                )}
+
+                <p className="text-xs text-gray-500 mt-2">
+                  {!formData.logo && "Upload event logo (required)"}
+                  {formData.logo && "Logo uploaded successfully"}
+                </p>
               </div>
 
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-[#CB3B0F] text-white py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all"
+                  disabled={uploadingLogo}
+                  className="flex-1 bg-[#CB3B0F] text-white py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {editingEvent ? "Update Event" : "Add Event"}
                 </button>
@@ -316,9 +410,10 @@ const EventsManagement = () => {
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

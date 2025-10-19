@@ -97,14 +97,6 @@ const Footer = () => {
                   Events
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/#divisi"
-                  className="text-gray-400 hover:text-[#FFAE00] transition-colors duration-300"
-                >
-                  Divisions
-                </Link>
-              </li>
             </ul>
           </div>
 

@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
-import About from "../components/About";
 import Gallery from "../components/Gallery";
 import Products from "../components/Products";
 import Events from "../components/Events";
-import Divisi from "../components/Divisi";
 import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
 
@@ -32,11 +30,9 @@ const Home = () => {
   return (
     <div className="w-full overflow-hidden">
       <Header />
-      <About />
       <Gallery />
       <Products />
       <Events />
-      <Divisi />
       <Testimonials />
       <Footer />
     </div>

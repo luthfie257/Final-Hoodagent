@@ -198,6 +198,104 @@ server.delete('/event-products/:id', (req, res) => {
   }
 });
 
+// Events routes
+server.get('/events', (req, res) => {
+  res.json(db.events || []);
+});
+
+server.get('/events/:id', (req, res) => {
+  const event = db.events?.find(e => String(e.id) === String(req.params.id));
+  if (event) {
+    res.json(event);
+  } else {
+    res.status(404).json({ error: 'Event not found' });
+  }
+});
+
+server.post('/events', (req, res) => {
+  if (!db.events) {
+    db.events = [];
+  }
+  const newEvent = {
+    id: db.events.length > 0 ? String(Math.max(...db.events.map(e => parseInt(e.id) || 0)) + 1) : "1",
+    ...req.body
+  };
+  db.events.push(newEvent);
+  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  res.status(201).json(newEvent);
+});
+
+server.put('/events/:id', (req, res) => {
+  const index = db.events?.findIndex(e => String(e.id) === String(req.params.id));
+  if (index !== -1) {
+    db.events[index] = { ...db.events[index], ...req.body, id: String(req.params.id) };
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    res.json(db.events[index]);
+  } else {
+    res.status(404).json({ error: 'Event not found' });
+  }
+});
+
+server.delete('/events/:id', (req, res) => {
+  const index = db.events?.findIndex(e => String(e.id) === String(req.params.id));
+  if (index !== -1) {
+    const deleted = db.events.splice(index, 1);
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    res.json(deleted[0]);
+  } else {
+    res.status(404).json({ error: 'Event not found' });
+  }
+});
+
+// Testimonials routes
+server.get('/testimonials', (req, res) => {
+  res.json(db.testimonials || []);
+});
+
+server.get('/testimonials/:id', (req, res) => {
+  const testimonial = db.testimonials?.find(t => String(t.id) === String(req.params.id));
+  if (testimonial) {
+    res.json(testimonial);
+  } else {
+    res.status(404).json({ error: 'Testimonial not found' });
+  }
+});
+
+server.post('/testimonials', (req, res) => {
+  if (!db.testimonials) {
+    db.testimonials = [];
+  }
+  const newTestimonial = {
+    id: db.testimonials.length > 0 ? String(Math.max(...db.testimonials.map(t => parseInt(t.id) || 0)) + 1) : "1",
+    ...req.body
+  };
+  db.testimonials.push(newTestimonial);
+  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  res.status(201).json(newTestimonial);
+});
+
+server.put('/testimonials/:id', (req, res) => {
+  const index = db.testimonials?.findIndex(t => String(t.id) === String(req.params.id));
+  if (index !== -1) {
+    db.testimonials[index] = { ...db.testimonials[index], ...req.body, id: String(req.params.id) };
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    res.json(db.testimonials[index]);
+  } else {
+    res.status(404).json({ error: 'Testimonial not found' });
+  }
+});
+
+server.delete('/testimonials/:id', (req, res) => {
+  const index = db.testimonials?.findIndex(t => String(t.id) === String(req.params.id));
+  if (index !== -1) {
+    const deleted = db.testimonials.splice(index, 1);
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    res.json(deleted[0]);
+  } else {
+    res.status(404).json({ error: 'Testimonial not found' });
+  }
+});
+
 const PORT = 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

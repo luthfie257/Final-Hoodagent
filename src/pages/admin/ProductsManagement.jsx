@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 
 const API_URL = "http://localhost:5000";
 
@@ -197,55 +198,71 @@ const ProductsManagement = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading...</div>;
+    return (
+      <div className="flex flex-col items-center justify-center py-16">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[#CB3B0F] mb-4"></div>
+        <p className="text-gray-600 font-medium">Loading products...</p>
+      </div>
+    );
   }
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Products Management
-        </h1>
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            Products Management
+          </h1>
+          <p className="text-gray-600">
+            Manage your regular Hood Agent products inventory
+          </p>
+        </div>
         <button
           onClick={() => openModal()}
-          className="bg-[#CB3B0F] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all duration-300"
+          className="bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
         >
-          + Add Product
+          <i className="bx bx-plus-circle text-xl"></i>
+          <span>Add Product</span>
         </button>
       </div>
 
       {/* Products Table */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00]">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                <th className="px-6 py-4 text-left text-sm font-bold text-white">
                   Image
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                <th className="px-6 py-4 text-left text-sm font-bold text-white">
                   Name
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                <th className="px-6 py-4 text-left text-sm font-bold text-white">
                   Category
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                <th className="px-6 py-4 text-left text-sm font-bold text-white">
                   Price
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
+                <th className="px-6 py-4 text-left text-sm font-bold text-white">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              {products.map((product) => {
+            <tbody>
+              {products.map((product, index) => {
                 // Get first image (support both old 'image' and new 'images' format)
                 const mainImage = product.images && product.images.length > 0
                   ? product.images[0]
                   : product.image;
 
                 return (
-                <tr key={product.id} className="hover:bg-gray-50">
+                <tr
+                  key={product.id}
+                  className={`transition-colors duration-150 hover:bg-orange-50 ${
+                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                  }`}
+                >
                   <td className="px-6 py-4">
                     {mainImage ? (
                       <div className="relative">
@@ -286,15 +303,17 @@ const ProductsManagement = () => {
                     <div className="flex gap-2">
                       <button
                         onClick={() => openModal(product)}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200 flex items-center gap-2 hover:shadow-md"
                       >
-                        Edit
+                        <i className="bx bx-edit-alt"></i>
+                        <span>Edit</span>
                       </button>
                       <button
                         onClick={() => handleDelete(product.id)}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 flex items-center gap-2 hover:shadow-md"
                       >
-                        Delete
+                        <i className="bx bx-trash"></i>
+                        <span>Delete</span>
                       </button>
                     </div>
                   </td>
@@ -307,14 +326,27 @@ const ProductsManagement = () => {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-800">
-                {editingProduct ? "Edit Product" : "Add New Product"}
-              </h2>
-            </div>
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00]">
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                  <i className="bx bx-shopping-bag text-3xl"></i>
+                  {editingProduct ? "Edit Product" : "Add New Product"}
+                </h2>
+              </div>
 
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
@@ -485,22 +517,25 @@ const ProductsManagement = () => {
                 <button
                   type="submit"
                   disabled={uploadingImages}
-                  className="flex-1 bg-[#CB3B0F] text-white py-3 rounded-lg font-semibold hover:bg-[#FFAE00] hover:text-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] text-white py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {editingProduct ? "Update Product" : "Add Product"}
+                  <i className={`bx ${editingProduct ? 'bx-save' : 'bx-plus-circle'} text-xl`}></i>
+                  <span>{editingProduct ? "Update Product" : "Add Product"}</span>
                 </button>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all"
+                  className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200 flex items-center justify-center gap-2"
                 >
-                  Cancel
+                  <i className="bx bx-x text-xl"></i>
+                  <span>Cancel</span>
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

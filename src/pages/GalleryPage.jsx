@@ -70,14 +70,14 @@ const GalleryPage = () => {
   // Pattern height - bervariasi untuk efek masonry
   const getHeightClass = (index) => {
     const patterns = [
-      "h-80",  // tall
-      "h-64",  // medium
-      "h-72",  // medium-tall
-      "h-96",  // extra tall
-      "h-64",  // medium
-      "h-80",  // tall
-      "h-72",  // medium-tall
-      "h-64",  // medium
+      "h-80", // tall
+      "h-64", // medium
+      "h-72", // medium-tall
+      "h-96", // extra tall
+      "h-64", // medium
+      "h-80", // tall
+      "h-72", // medium-tall
+      "h-64", // medium
     ];
     return patterns[index % patterns.length];
   };
@@ -95,8 +95,26 @@ const GalleryPage = () => {
         ></div>
       </div>
 
+      {/* Title Section */}
+      <section className="container mx-auto px-6 md:px-20 lg:px-32 pt-20 pb-8">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            Our <span className="text-[#CB3B0F]">Gallery</span>
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Explore our collection of moments, events, and achievements
+          </p>
+        </motion.div>
+      </section>
+
       {/* Pinterest-Style Masonry Grid */}
-      <section className="container mx-auto py-20 px-6 md:px-12 lg:px-20">
+      <section className="container mx-auto pb-20 px-6 md:px-12 lg:px-20">
         <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
           {galleryPhotos.slice(0, -4).map((photo, index) => (
             <motion.div
@@ -120,7 +138,9 @@ const GalleryPage = () => {
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <div className="text-white">
-                    <p className="text-sm font-semibold">Hood Agent Collection</p>
+                    <p className="text-sm font-semibold">
+                      Hood Agent Collection
+                    </p>
                     <p className="text-xs text-white/80">Click to view</p>
                   </div>
                 </div>
@@ -153,7 +173,9 @@ const GalleryPage = () => {
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <div className="text-white">
-                    <p className="text-sm font-semibold">Hood Agent Collection</p>
+                    <p className="text-sm font-semibold">
+                      Hood Agent Collection
+                    </p>
                     <p className="text-xs text-white/80">Click to view</p>
                   </div>
                 </div>
@@ -218,7 +240,8 @@ const GalleryPage = () => {
             Love What You See?
           </h3>
           <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-            Check out our products and get your own Hood Agent merchandise today!
+            Check out our products and get your own Hood Agent merchandise
+            today!
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
