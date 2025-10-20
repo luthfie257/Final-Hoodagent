@@ -96,7 +96,7 @@ const EventsPage = () => {
             <div className="flex items-center justify-center gap-3 text-white/90 text-xl mb-6">
               <span className="flex items-center gap-2">
                 <i className="bx bx-calendar text-[#FFAE00]"></i>
-                5th Anniversary - 2025
+                7th Anniversary - 2025
               </span>
             </div>
           </motion.div>
@@ -141,7 +141,7 @@ const EventsPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Celebrate 5 years of Loyalitas with our exclusive merchandise
+            Celebrate 7 years of Loyalitas with our exclusive merchandise
             collection
           </motion.p>
         </div>

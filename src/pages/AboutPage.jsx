@@ -34,7 +34,9 @@ const AboutPage = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Hood Agent Logo Philosophy
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            Hood Agent Logo <span className="text-[#CB3B0F]">Philosophy</span>
+          </h1>
         </motion.h1>
 
         {/* 1. Huruf H */}
@@ -216,7 +218,7 @@ const AboutPage = () => {
             transition={{ duration: 0.7 }}
           >
             <img
-              src={assets.logo}
+              src={assets.logo_dark}
               alt="Logo Hood Agent"
               className="w-full max-w-[300px] h-auto"
             />
@@ -273,17 +275,7 @@ const AboutPage = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Join Our Community
-          </h3>
-          <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-            Be part of something bigger. Connect with like-minded individuals
-            and grow together.
-          </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="bg-white text-[#CB3B0F] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
-              Get Started
-            </button>
             <a
               href="/"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#CB3B0F] transition-all duration-300 hover:scale-105"

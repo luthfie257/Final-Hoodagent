@@ -78,7 +78,7 @@ const Footer = () => {
                   to="/#catalog"
                   className="text-gray-400 hover:text-[#FFAE00] transition-colors duration-300"
                 >
-                  Catalog
+                  Gallery
                 </Link>
               </li>
               <li>

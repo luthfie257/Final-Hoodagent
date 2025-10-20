@@ -219,17 +219,7 @@ const ProductsPage = () => {
 
             {/* CTA Section */}
             <div className="mt-16 text-center bg-gradient-to-r from-[#CB3B0F] to-[#FFAE00] rounded-2xl p-12 shadow-xl">
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Need Bulk Orders?
-              </h3>
-              <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-                Contact us for special pricing on bulk orders and custom
-                merchandise
-              </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <button className="bg-white text-[#CB3B0F] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
-                  Contact Sales Team
-                </button>
                 <a
                   href="/"
                   className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#CB3B0F] transition-all duration-300 hover:scale-105"
